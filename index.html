@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Segmentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            width: 380px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .c1 { background-color: #ffe6e6; }
+        .c2 { background-color: #fff3cd; }
+        .c3 { background-color: #d1ecf1; }
+        .c4 { background-color: #d4edda; }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Customer Segmentation</h2>
+
+    <input type="number" id="income" placeholder="Annual Income">
+    <input type="number" id="score" placeholder="Spending Score (0–100)">
+
+    <button onclick="predictCluster()">Predict Cluster</button>
+
+    <div id="resultBox" class="result"></div>
+</div>
+
+<script>
+function predictCluster() {
+
+    let income = Number(document.getElementById("income").value);
+    let score  = Number(document.getElementById("score").value);
+    let resultBox = document.getElementById("resultBox");
+
+    if (!income || score === "") {
+        resultBox.innerHTML = "Please enter valid values!";
+        resultBox.className = "result";
+        return;
+    }
+
+    if (score < 0 || score > 100) {
+        resultBox.innerHTML = "Spending score must be between 0 and 100";
+        resultBox.className = "result";
+        return;
+    }
+
+    if (score <= 30) {
+        resultBox.innerHTML =
+            "Cluster 1: Low Spender<br>Income: " + income;
+        resultBox.className = "result c1";
+    }
+    else if (score <= 60) {
+        resultBox.innerHTML =
+            "Cluster 2: Average Spender<br>Income: " + income;
+        resultBox.className = "result c2";
+    }
+    else if (score <= 80) {
+        resultBox.innerHTML =
+            "Cluster 3: High Spender<br>Income: " + income;
+        resultBox.className = "result c3";
+    }
+    else {
+        resultBox.innerHTML =
+            "Cluster 4: Luxury Spender<br>Income: " + income;
+        resultBox.className = "result c4";
+    }
+}
+</script>
+
+</body>
+</html>
+
+
